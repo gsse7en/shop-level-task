@@ -21,6 +21,7 @@ namespace UI
         [SerializeField]
         private GameObject m_InventoryScreen;
         private UIScreens m_CurrentScreen = UIScreens.None;
+        public static bool buyButtonShown = false;
 
         public UIScreens CurrentScreen
         {
@@ -58,7 +59,7 @@ namespace UI
         #region Public
         public void OpenShop()
         {
-            CurrentScreen = UIScreens.Shop;
+            if (buyButtonShown) CurrentScreen = UIScreens.Shop;
         }
 
         public void CloseScreens()
