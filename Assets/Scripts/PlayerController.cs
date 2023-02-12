@@ -1,55 +1,55 @@
+using UI;
+using Unity.Collections;
 using UnityEngine;
-using CommandPattern;
-using System;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 namespace Game.Controls
 {
     public class PlayerController : MonoBehaviour
     {
-        private Command buttonW, buttonS, buttonA, buttonD;
-        private KeyCode keyCode;
+        [SerializeField]
+        private float speed = 5f;
+        [SerializeField]
+        private UIController uIController;
+        [ReadOnlyAttribute, SerializeField]
+        private Vector2 movement;
+        private Rigidbody2D rb;
 
-        void Start()
+        void Awake()
         {
-            buttonW = new MoveForward();
-            buttonS = new MoveReverse();
-            buttonA = new MoveLeft();
-            buttonD = new MoveRight();
+            rb = GetComponent<Rigidbody2D>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             HandleInput();
         }
 
+        private void OnMovement(InputValue value)
+        {
+            movement = value.Get<Vector2>();
+        }
+
+        private void OnOpenShop()
+        {
+            uIController.OpenShop();
+        }
+
+        private void OnClosePopups()
+        {
+
+            uIController.CloseScreens();
+        }
+
+        private void OnOpenInventory()
+        {
+            uIController.OpenInventory();
+        }
+
         private void HandleInput()
         {
-            if (Input.inputString.Length == 0) return;
-            if (Input.inputString.Length > 1)
-            {
-                Debug.LogError("split string");
-                return;
-            }
-
-            keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), Input.inputString.ToUpper());
-
-            switch (keyCode)
-            {
-                case KeyCode.D:
-                    buttonD.Execute(transform);
-                    break;
-                case KeyCode.A:
-                    buttonA.Execute(transform);
-                    break;
-                case KeyCode.W:
-                    buttonW.Execute(transform);
-                    break;
-                case KeyCode.S:
-                    buttonS.Execute(transform);
-                    break;
-                default:
-                    break;
-            }
+            rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         }
     }
 }
