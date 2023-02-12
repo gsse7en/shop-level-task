@@ -34602,11 +34602,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2211c903db8d14b8ba40f8996a1191c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CloeButtons:
-  - {fileID: 8416978993254032187}
-  - {fileID: 1836899696}
   m_ShopScreen: {fileID: 1491561800}
   m_InventoryScreen: {fileID: 1191178218667619126}
+  cursorTexture: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
 --- !u!1001 &1979578892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38542,9 +38540,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2211c903db8d14b8ba40f8996a1191c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CloeButtons: []
   m_ShopScreen: {fileID: 1191178218667619126}
   m_InventoryScreen: {fileID: 0}
+  cursorTexture: {fileID: 0}
 --- !u!1001 &5152450809945780874
 PrefabInstance:
   m_ObjectHideFlags: 0

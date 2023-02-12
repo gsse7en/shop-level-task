@@ -15,11 +15,10 @@ namespace UI
     public class UIController : MonoBehaviour
     {
         [SerializeField]
-        private List<Button> m_CloeButtons = new List<Button>();
-        [SerializeField]
         private GameObject m_ShopScreen;
         [SerializeField]
         private GameObject m_InventoryScreen;
+
         private UIScreens m_CurrentScreen = UIScreens.None;
         public static bool buyButtonShown = false;
 
@@ -34,25 +33,21 @@ namespace UI
         }
 
         #region Lifecycle
-        void Awake()
+        
+
+        void Start()
         {
-            foreach (Button button in m_CloeButtons)
-            {
-                button.onClick.AddListener(delegate { CloseScreens(); });
-            }
+            //
         }
 
         private void OnDestroy()
         {
-            foreach (Button button in m_CloeButtons)
-            {
-                button.onClick.RemoveAllListeners();
-            }
+            //
         }
 
         void Update()
         {
-
+            //
         }
         #endregion
 
