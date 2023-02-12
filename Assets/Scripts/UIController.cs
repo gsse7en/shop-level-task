@@ -6,26 +6,36 @@ namespace UI
     public class UIController : MonoBehaviour
     {
         [SerializeField]
-        private Button m_button;
+        public Button m_button;
         [SerializeField]
-        private GameObject m_ShopScreen;
+        public GameObject m_ShopScreen;
 
         #region Lifecycle
         void Start()
         {
-            m_ShopScreen.SetActive(true);
+            m_button?.onClick.AddListener(delegate
+            {
+                CloseShop();
+            });
         }
 
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.B)) OpenShop();
         }
         #endregion
 
         #region Public
+        public void OpenShop()
+        {
+            if (m_ShopScreen == null)
+                return;
+            m_ShopScreen.SetActive(true);
+        }
+
         public void CloseShop()
         {
-            m_ShopScreen.SetActive(false);
+            m_ShopScreen?.SetActive(false);
         }
 
         public void Buy()
