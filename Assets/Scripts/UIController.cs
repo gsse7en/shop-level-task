@@ -15,13 +15,17 @@ namespace UI
     public class UIController : MonoBehaviour
     {
         [SerializeField]
-        private List<Button> m_CloeButtons = new List<Button>();
-        [SerializeField]
         private GameObject m_ShopScreen;
         [SerializeField]
         private GameObject m_InventoryScreen;
+
         private UIScreens m_CurrentScreen = UIScreens.None;
-        public static bool buyButtonShown = false;
+        private bool m_showBuyButton = false;
+        public bool ShowBuyButton
+        {
+            get { return m_showBuyButton; }
+            set { m_showBuyButton = value; }
+        }
 
         public UIScreens CurrentScreen
         {
@@ -34,32 +38,26 @@ namespace UI
         }
 
         #region Lifecycle
-        void Awake()
+        void Start()
         {
-            foreach (Button button in m_CloeButtons)
-            {
-                button.onClick.AddListener(delegate { CloseScreens(); });
-            }
+            //
         }
 
         private void OnDestroy()
         {
-            foreach (Button button in m_CloeButtons)
-            {
-                button.onClick.RemoveAllListeners();
-            }
+            //
         }
 
         void Update()
         {
-
+            //
         }
         #endregion
 
         #region Public
         public void OpenShop()
         {
-            if (buyButtonShown) CurrentScreen = UIScreens.Shop;
+            if (m_showBuyButton) CurrentScreen = UIScreens.Shop;
         }
 
         public void CloseScreens()
@@ -81,6 +79,11 @@ namespace UI
         {
             Debug.Log("SellButton Pressed");
         }
+
+        public void Equip()
+        {
+            Debug.Log("EquipButton Pressed");
+        }
         #endregion
 
         #region Private
@@ -91,14 +94,17 @@ namespace UI
                 case UIScreens.Shop:
                     m_InventoryScreen.SetActive(false);
                     m_ShopScreen.SetActive(true);
+                    Cursor.visible = true;
                     break;
                 case UIScreens.Inventory:
                     m_InventoryScreen.SetActive(true);
                     m_ShopScreen.SetActive(false);
+                    Cursor.visible = true;
                     break;
                 case UIScreens.None:
                     m_InventoryScreen.SetActive(false);
                     m_ShopScreen.SetActive(false);
+                    Cursor.visible = false;
                     break;
             }
         }

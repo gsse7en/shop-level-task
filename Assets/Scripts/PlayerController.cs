@@ -16,6 +16,7 @@ namespace Game.Controls
         private Vector2 movement;
         private Rigidbody2D rb;
 
+        #region Lifecycle
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -25,7 +26,9 @@ namespace Game.Controls
         {
             HandleInput();
         }
+        #endregion
 
+        #region Events
         private void OnMovement(InputValue value)
         {
             movement = value.Get<Vector2>();
@@ -46,10 +49,13 @@ namespace Game.Controls
         {
             uIController.OpenInventory();
         }
+        #endregion
 
+        #region Private
         private void HandleInput()
         {
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         }
+        #endregion
     }
 }
