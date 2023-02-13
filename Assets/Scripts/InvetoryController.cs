@@ -1,27 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI.ShopItem;
 
 namespace UI.Inventory
 {
-    public struct Item
-    {
-        public GameObject Parent;
-        public int Cost;
-        public string Name;
-        public Sprite Icon;
-        public bool Selected;
-
-        public Item(GameObject parent, int cost, string name, Sprite icon)
-        {
-            Parent = parent;
-            Cost = cost;
-            Name = name;
-            Icon = icon;
-            Selected = false;
-        }
-    }
-
     public class InvetoryController : MonoBehaviour
     {
         //temp
@@ -38,7 +21,7 @@ namespace UI.Inventory
         [SerializeField]
         private RectTransform m_InventoryContent;
         [SerializeField]
-        private GameObject m_ItemPrefab;
+        private Item m_ItemPrefab;
         private List<Item> m_EquippedItems = new List<Item>();
         private List<Item> m_InventoryItems = new List<Item>();
 
@@ -46,7 +29,7 @@ namespace UI.Inventory
         #region Lyfecicle
         private void Awake()
         {
-
+            LoadItems();
             //m_InventoryItems.Add(Sword);
             //m_InventoryItems.Add(Helmet);
         }
@@ -81,6 +64,23 @@ namespace UI.Inventory
         #endregion
 
         #region Private
+        private void LoadItems()
+        {
+            m_InventoryItems.Add(CreateItem("Sword", 150, sword));
+            m_InventoryItems.Add(CreateItem("Helmet", 100, helmet));
+            //Item sword = Instantiate(m_ItemPrefab, m_InventoryContent);
+            //sword.
+        }
+
+        private Item CreateItem(string name, int cost, Sprite icon)
+        {
+            Item item = Instantiate(m_ItemPrefab, m_InventoryContent);
+            item.Name = name;
+            item.Cost = cost;
+            item.Icon = icon;
+            return item;
+        }
+
         private void Clean()
         {
             foreach (Item item in m_EquippedItems)

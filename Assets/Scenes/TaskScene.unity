@@ -17312,7 +17312,7 @@ PrefabInstance:
     - target: {fileID: 1287954276882197411, guid: b9d779ffe243a4c33847bb5f2e190410,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 16.45
+      value: 16.449997
       objectReference: {fileID: 0}
     - target: {fileID: 1287954276882197411, guid: b9d779ffe243a4c33847bb5f2e190410,
         type: 3}
@@ -30548,7 +30548,7 @@ PrefabInstance:
     - target: {fileID: 1287954276882197411, guid: b9d779ffe243a4c33847bb5f2e190410,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 16.45
+      value: 16.449997
       objectReference: {fileID: 0}
     - target: {fileID: 1287954276882197411, guid: b9d779ffe243a4c33847bb5f2e190410,
         type: 3}
@@ -39926,11 +39926,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c6cf7c94d19460aa8913d9da8b2a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  helmet: {fileID: 0}
-  sword: {fileID: 0}
-  m_EquippedContent: {fileID: 0}
-  m_InventoryContent: {fileID: 0}
-  m_ItemPrefab: {fileID: 0}
+  helmet: {fileID: 21300000, guid: 45603c38f879a314bb0baedd8f1f5eba, type: 3}
+  sword: {fileID: 21300000, guid: 4ad16adfdf2d1a441879a598de742eb6, type: 3}
+  m_EquippedContent: {fileID: 1593767543}
+  m_InventoryContent: {fileID: 107568214}
+  m_ItemPrefab: {fileID: 5260565918576408358, guid: b9d779ffe243a4c33847bb5f2e190410,
+    type: 3}
 --- !u!114 &5384640535601724765
 MonoBehaviour:
   m_ObjectHideFlags: 0

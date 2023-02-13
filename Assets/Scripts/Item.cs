@@ -5,8 +5,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UI.Item
+namespace UI.ShopItem
 {
+    public enum ItemBelongsTo { Equipped, Inventory, Shop }
+
     [System.Serializable]
     public struct ItemInfo
     {
@@ -14,7 +16,6 @@ namespace UI.Item
         public GameObject SelectHighlight;
         public Button ItemButton;
         public Image Icon;
-        public bool Selected;
     }
 
     public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -23,18 +24,32 @@ namespace UI.Item
         private ItemInfo m_ItemInfo;
         [SerializeField]
         private MouseCursor m_CursorHandler;
+        private int m_Cost;
+        private bool m_Selected = false;
+        private string m_Name;
 
-        public Sprite Icon
+        public GameObject Parent { get { return m_ItemInfo.Parent; } }
+        public Sprite Icon { set { m_ItemInfo.Icon.sprite = value; } }
+
+        public int Cost
         {
-            set { m_ItemInfo.Icon.sprite = value; }
+            get { return m_Cost; }
+            set { m_Cost = value; }
+        }
+
+        public string Name
+        {
+            get { return m_Name; }
+            set { m_Name = value; }
         }
 
         public bool Selected
         {
-            get { return m_ItemInfo.Selected; }
-            set {
-                m_ItemInfo.Selected = value;
-                m_ItemInfo.SelectHighlight.SetActive(m_ItemInfo.Selected);
+            get { return m_Selected; }
+            set
+            {
+                m_Selected = value;
+                m_ItemInfo.SelectHighlight.SetActive(m_Selected);
             }
         }
 
@@ -45,11 +60,6 @@ namespace UI.Item
             {
                 m_ItemInfo.ItemButton.onClick.AddListener(delegate { Selected = !Selected; });
             }
-        }
-
-        private void HandCursor(PointerEventData obj)
-        {
-            throw new NotImplementedException();
         }
 
         private void OnDestroy()
