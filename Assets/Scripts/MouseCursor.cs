@@ -8,40 +8,35 @@ namespace UI
     public class MouseCursor : MonoBehaviour
     {
         [SerializeField]
-        private Texture2D pointerCursos;
+        private Texture2D pointerCursor;
         [SerializeField]
-        private Texture2D handCursos;
+        private Texture2D handCursor;
         private SpriteRenderer rend;
         private Vector3 cursorPos;
 
         #region Lyfecicle
         private void Start()
         {
-            HideCursor();
+            ShowCursor(false);
             rend = GetComponent<SpriteRenderer>();
         }
         #endregion
 
         #region Public
-        public void HideCursor()
+        public void ShowCursor(bool show)
         {
-            OnMouseOut();
-            Cursor.visible = false;
+            if (!show) PointerCursor();
+            Cursor.visible = show;
         }
 
-        public void ShowCursor()
+        public void HandCursor()
         {
-            Cursor.visible = false;
+            Cursor.SetCursor(handCursor, new Vector2(14f, 16f), CursorMode.Auto);
         }
 
-        public void OnMouseOver()
+        public void PointerCursor()
         {
-            Cursor.SetCursor(handCursos, new Vector2(14f, 16f), CursorMode.Auto);
-        }
-
-        public void OnMouseOut()
-        {
-            Cursor.SetCursor(pointerCursos, new Vector2(20f, 20f), CursorMode.Auto);
+            Cursor.SetCursor(pointerCursor, new Vector2(20f, 20f), CursorMode.Auto);
         }
         #endregion
     }

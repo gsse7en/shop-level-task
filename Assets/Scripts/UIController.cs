@@ -20,6 +20,7 @@ namespace UI
         private GameObject m_InventoryScreen;
 
         private UIScreens m_CurrentScreen = UIScreens.None;
+        //TODO make evnt delegate listner
         private bool m_showBuyButton = false;
         public bool ShowBuyButton
         {
