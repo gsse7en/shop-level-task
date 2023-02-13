@@ -280,9 +280,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4418486069290878570}
   m_Enabled: 1
-  m_SortingLayerID: 733445087
-  m_SortingLayer: 4
-  m_SortingOrder: 5
+  m_SortingLayerID: -105541197
+  m_SortingLayer: 3
+  m_SortingOrder: 7
 --- !u!1 &4706713558499061618
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,9 +359,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 733445087
-  m_SortingLayer: 4
-  m_SortingOrder: 2
+  m_SortingLayerID: -105541197
+  m_SortingLayer: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
   m_Color: {r: 1, g: 0.972549, b: 0.8156863, a: 1}
@@ -445,9 +445,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 733445087
-  m_SortingLayer: 4
-  m_SortingOrder: 4
+  m_SortingLayerID: -105541197
+  m_SortingLayer: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee,
     type: 3}
   m_Color: {r: 1, g: 0.972549, b: 0.8156863, a: 1}
@@ -571,9 +571,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6637176422958093589}
   m_Enabled: 1
-  m_SortingLayerID: 733445087
-  m_SortingLayer: 4
-  m_SortingOrder: 4
+  m_SortingLayerID: -105541197
+  m_SortingLayer: 3
+  m_SortingOrder: 7
 --- !u!1 &7191268015606459361
 GameObject:
   m_ObjectHideFlags: 0
