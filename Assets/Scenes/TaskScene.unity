@@ -426,12 +426,12 @@ PrefabInstance:
     - target: {fileID: 2294316273783810152, guid: 279609700fdd54f159d53749594670c0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.27
+      value: -1.28
       objectReference: {fileID: 0}
     - target: {fileID: 2294316273783810152, guid: 279609700fdd54f159d53749594670c0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.59
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2294316273783810152, guid: 279609700fdd54f159d53749594670c0,
         type: 3}
@@ -31701,7 +31701,7 @@ GameObject:
   - component: {fileID: 1649676285}
   - component: {fileID: 1649676287}
   m_Layer: 5
-  m_Name: ShopScreen
+  m_Name: ShopPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37405,7 +37405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &1210362908439281407
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39437,7 +39437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &5724624599686979093
 PrefabInstance:
   m_ObjectHideFlags: 0
