@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 namespace UI
 {
@@ -18,8 +18,13 @@ namespace UI
         private GameObject m_ShopScreen;
         [SerializeField]
         private GameObject m_InventoryScreen;
+        [SerializeField]
+        private CoinsData m_CoinsData;
+        [SerializeField]
+        private TextMeshProUGUI m_HUDCoins;
 
         private UIScreens m_CurrentScreen = UIScreens.None;
+        //TODO make event delegate listener
         private bool m_showBuyButton = false;
         public bool ShowBuyButton
         {
@@ -38,19 +43,15 @@ namespace UI
         }
 
         #region Lifecycle
-        void Start()
+        void Awake()
         {
-            //
+            m_CoinsData.CoinsChanged += OnCoinsChange;
+            m_HUDCoins.text = m_CoinsData.Count.ToString();
         }
 
         private void OnDestroy()
         {
-            //
-        }
-
-        void Update()
-        {
-            //
+            m_CoinsData.CoinsChanged -= OnCoinsChange;
         }
         #endregion
 
@@ -68,21 +69,6 @@ namespace UI
         public void OpenInventory()
         {
             CurrentScreen = UIScreens.Inventory;
-        }
-
-        public void Buy()
-        {
-            Debug.Log("BuyButton Pressed");
-        }
-
-        public void Sell()
-        {
-            Debug.Log("SellButton Pressed");
-        }
-
-        public void Equip()
-        {
-            Debug.Log("EquipButton Pressed");
         }
         #endregion
 
@@ -107,6 +93,13 @@ namespace UI
                     Cursor.visible = false;
                     break;
             }
+        }
+        #endregion
+
+        #region Delegates
+        private void OnCoinsChange(int coins)
+        {
+            m_HUDCoins.text = coins.ToString();
         }
         #endregion
     }
