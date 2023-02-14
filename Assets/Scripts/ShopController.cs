@@ -27,6 +27,8 @@ namespace UI.Shop
         private TextMeshProUGUI m_BuyPrice;
         [SerializeField]
         private TextMeshProUGUI m_SellPrice;
+        [SerializeField]
+        private Animator m_NotEnoughMoneyAnimator;
         private List<Item> m_Items = new List<Item>();
         private List<ItemData> m_EquippedItems = new List<ItemData>();
 
@@ -122,12 +124,12 @@ namespace UI.Shop
         {
             List<Item> itemsToBuy = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Shop && item.Selected).ToList();
             int cost = itemsToBuy.Select(item => item.Cost).Sum();
-            if (cost > m_CoinsData.Count)
-            {
-                //TODO
-                Debug.LogError("NOT ENOUGH CASH");
-                return;
-            }
+            if (cost > m_CoinsData.Count) m_NotEnoughMoneyAnimator.SetTrigger("NoMoney");
+            //{
+            //    //TODO
+            //    Debug.LogError("NOT ENOUGH CASH");
+            //    return;
+            //}
             else
             {
                 m_CoinsData.Count -= cost;
