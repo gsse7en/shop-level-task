@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UI;
 
 namespace Game.Player
 {
@@ -12,10 +13,13 @@ namespace Game.Player
         private GameObject m_Sword;
         [SerializeField]
         private GameObject m_Helmet;
+        [SerializeField]
+        private UIStateData m_UIStateData;
         [ReadOnlyAttribute, SerializeField]
         private Vector2 movement;
         private Rigidbody2D rb;
         private Dictionary<string, GameObject> m_ItemsDictionary;
+        private bool canPlayerMove = true;
 
         #region Lifecycle
         void Awake()
@@ -26,11 +30,12 @@ namespace Game.Player
                 { "Sword", m_Sword },
                 { "Helmet", m_Helmet }
             };
+            m_UIStateData.UIScreenChanged += OnUIScreenChanged;
         }
 
         void FixedUpdate()
         {
-            HandleInput();
+            if (canPlayerMove) HandleInput();
         }
         #endregion
 
@@ -55,6 +60,13 @@ namespace Game.Player
         private void HandleInput()
         {
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        }
+        #endregion
+
+        #region Delegates
+        private void OnUIScreenChanged(UIScreens currentScreen)
+        {
+            canPlayerMove = currentScreen == UIScreens.None;
         }
         #endregion
     }

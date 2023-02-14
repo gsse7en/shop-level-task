@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -7,12 +7,11 @@ namespace Characters.Shopkeeper
 {
     public class ShopKeeper : MonoBehaviour
     {
+        public event Action<bool> TradePossibilityChanged;
         [SerializeField]
         private GameObject buyButton;
         [SerializeField]
         private GameObject activityBalloon;
-        [SerializeField]
-        private UIController uIController;
 
         #region Events
         private void OnCollisionEnter2D(Collision2D other)
@@ -23,10 +22,6 @@ namespace Characters.Shopkeeper
         private void OnCollisionExit2D(Collision2D other)
         {
             HideBuyButton();
-            if (uIController.CurrentScreen == UIScreens.Shop)
-            {
-                uIController.CloseScreens();
-            }
         }
         #endregion
 
@@ -35,14 +30,14 @@ namespace Characters.Shopkeeper
         {
             buyButton.SetActive(true);
             activityBalloon.SetActive(false);
-            uIController.ShowBuyButton = true;
+            TradePossibilityChanged?.Invoke(true);
         }
 
         private void HideBuyButton()
         {
             buyButton.SetActive(false);
             activityBalloon.SetActive(true);
-            uIController.ShowBuyButton = false;
+            TradePossibilityChanged?.Invoke(false);
         }
         #endregion
     }

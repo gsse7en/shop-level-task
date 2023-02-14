@@ -31,7 +31,6 @@ namespace UI.Inventory
         {
             LoadItems();
             SubcribeToEvents();
-            
         }
 
         private void OnEnable()

@@ -18093,6 +18093,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957019904}
   m_CullTransparentMesh: 1
+--- !u!114 &957124372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7860095205517448927, guid: fe5cf6f3f88b849e78601502b8937464,
+    type: 3}
+  m_PrefabInstance: {fileID: 3171818866523360186}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480d188efa13d4d2cbc7d86f8c60d5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &961753988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36739,6 +36751,8 @@ MonoBehaviour:
   m_InventoryScreen: {fileID: 1191178218667619126}
   m_CoinsData: {fileID: 11400000, guid: a0e42ca9e560b4d9cad5460dba6e5f85, type: 2}
   m_HUDCoins: {fileID: 854438715}
+  m_ShopKeeper: {fileID: 957124372}
+  m_UIStateData: {fileID: 11400000, guid: d726fad24df404811aceb957d4507dbb, type: 2}
 --- !u!1 &1970624131
 GameObject:
   m_ObjectHideFlags: 0

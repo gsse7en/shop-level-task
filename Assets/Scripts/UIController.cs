@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Characters.Shopkeeper;
 
 namespace UI
 {
@@ -22,15 +23,13 @@ namespace UI
         private CoinsData m_CoinsData;
         [SerializeField]
         private TextMeshProUGUI m_HUDCoins;
+        [SerializeField]
+        private ShopKeeper m_ShopKeeper;
+        [SerializeField]
+        private UIStateData m_UIStateData;
 
+        private bool m_canTrade = false;
         private UIScreens m_CurrentScreen = UIScreens.None;
-        //TODO make event delegate listener
-        private bool m_showBuyButton = false;
-        public bool ShowBuyButton
-        {
-            get { return m_showBuyButton; }
-            set { m_showBuyButton = value; }
-        }
 
         public UIScreens CurrentScreen
         {
@@ -45,8 +44,9 @@ namespace UI
         #region Lifecycle
         void Awake()
         {
-            m_CoinsData.CoinsChanged += OnCoinsChange;
             m_HUDCoins.text = m_CoinsData.Count.ToString();
+            m_CoinsData.CoinsChanged += OnCoinsChange;
+            m_ShopKeeper.TradePossibilityChanged += OnTradePossibilityChanged;
         }
 
         private void OnDestroy()
@@ -58,7 +58,7 @@ namespace UI
         #region Public
         public void OpenShop()
         {
-            if (m_showBuyButton) CurrentScreen = UIScreens.Shop;
+            if (m_canTrade) CurrentScreen = UIScreens.Shop;
         }
 
         public void CloseScreens()
@@ -93,6 +93,7 @@ namespace UI
                     Cursor.visible = false;
                     break;
             }
+            m_UIStateData.ScreenState = m_CurrentScreen;
         }
         #endregion
 
@@ -100,6 +101,11 @@ namespace UI
         private void OnCoinsChange(int coins)
         {
             m_HUDCoins.text = coins.ToString();
+        }
+
+        private void OnTradePossibilityChanged(bool canTrade)
+        {
+            m_canTrade = canTrade;
         }
         #endregion
     }

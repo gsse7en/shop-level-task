@@ -751,6 +751,7 @@ MonoBehaviour:
   speed: 3
   m_Sword: {fileID: 2159265783862828258}
   m_Helmet: {fileID: 7453211549317022978}
+  m_UIStateData: {fileID: 11400000, guid: d726fad24df404811aceb957d4507dbb, type: 2}
   movement: {x: 0, y: 0}
 --- !u!50 &87875412149371580
 Rigidbody2D:

@@ -34,5 +34,4 @@ namespace Game.Controls
             uIController.OpenInventory();
         }
     }
-
 }

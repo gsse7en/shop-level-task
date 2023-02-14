@@ -101,6 +101,7 @@ namespace UI.Shop
                 item.ItemSelected -= OnItemSelected;
                 Destroy(item.Parent);
             }
+
             m_Items.Clear();
             m_EquippedItems.Clear();
             m_BuyPrice.text = m_SellPrice.text = "0";
@@ -124,10 +125,12 @@ namespace UI.Shop
         {
             List<Item> itemsToBuy = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Shop && item.Selected).ToList();
             int cost = itemsToBuy.Select(item => item.Cost).Sum();
+
             if (cost > m_CoinsData.Count) m_NotEnoughMoneyAnimator.SetTrigger("NoMoney");
             else
             {
                 m_CoinsData.Count -= cost;
+
                 foreach (Item item in itemsToBuy) item.BelongsTo = ItemBelongsTo.Inventory;
             }
         }
@@ -137,6 +140,7 @@ namespace UI.Shop
             List<Item> itemsToSell = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
             int cost = itemsToSell.Select(item => item.Cost).Sum();
             m_CoinsData.Count += cost;
+
             foreach (Item item in itemsToSell) item.BelongsTo = ItemBelongsTo.Shop;
         }
 
