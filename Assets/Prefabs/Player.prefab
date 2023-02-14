@@ -749,11 +749,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ItemsData: {fileID: 11400000, guid: 010f8cb8eafd14f8d90194b396bfd89a, type: 2}
-  speed: 3
+  m_Speed: 5
   m_Sword: {fileID: 2159265783862828258}
   m_Helmet: {fileID: 7453211549317022978}
   m_UIStateData: {fileID: 11400000, guid: d726fad24df404811aceb957d4507dbb, type: 2}
-  movement: {x: 0, y: 0}
+  m_PlayerAnimator: {fileID: 2200214584949390982}
+  m_Movement: {x: 0, y: 0}
+  m_Rigidbody: {fileID: 87875412149371580}
 --- !u!50 &87875412149371580
 Rigidbody2D:
   serializedVersion: 4
