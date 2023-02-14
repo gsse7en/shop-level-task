@@ -38,10 +38,10 @@ namespace Game.Player
                 { "Helmet", m_Helmet }
             };
 
-            foreach (ItemData item in m_ItemsData.ItemList)
+            m_ItemsData.ItemList.ForEach(item =>
             {
                 if (item.BelongsTo == ItemBelongsTo.Equipped) m_ItemsDictionary[item.Name].SetActive(true);
-            }
+            });
 
             m_UIStateData.UIScreenChanged += OnUIScreenChanged;
         }
@@ -56,12 +56,12 @@ namespace Game.Player
         #region Public
         public void Equip(List<string> items)
         {
-            foreach (string name in items) m_ItemsDictionary[name].SetActive(true);
+            items.ForEach(name => m_ItemsDictionary[name].SetActive(true));
         }
 
         public void Strip(List<string> items)
         {
-            foreach (string name in items) m_ItemsDictionary[name].SetActive(false);
+            items.ForEach(name => m_ItemsDictionary[name].SetActive(false));
         }
 
         public void Move(Vector2 value)
@@ -73,12 +73,14 @@ namespace Game.Player
         #region Private
         private void HandleInput()
         {
-            m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Speed * Time.fixedDeltaTime);
             bool isMoving = Mathf.Abs(m_Movement.x + m_Movement.y) > 0;
-            if(m_Movement.x > 0 && !m_PlayerFacingRight || m_Movement.x < 0 && m_PlayerFacingRight) FlipDirection();
-            if ((isMoving == m_PlayerRecentlyMoved)) return;
+            bool changedDirection = m_Movement.x > 0 && !m_PlayerFacingRight || m_Movement.x < 0 && m_PlayerFacingRight;
+            m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Speed * Time.fixedDeltaTime);
             m_PlayerAnimator.SetBool("Movement", isMoving);
             m_PlayerRecentlyMoved = isMoving;
+
+            if (changedDirection) FlipDirection();
+            if ((isMoving == m_PlayerRecentlyMoved)) return;
         }
 
         private void FlipDirection()

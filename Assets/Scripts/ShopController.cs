@@ -61,11 +61,13 @@ namespace UI.Shop
         private Item CreateItem(string name, int cost, Sprite icon, ItemBelongsTo belongsTo)
         {
             Item item = Instantiate(m_ItemPrefab, belongsTo == ItemBelongsTo.Inventory ? m_InventoryContent : m_ShopContent);
+
             item.BelongsTo = belongsTo;
             item.Name = name;
             item.Cost = cost;
             item.Icon = icon;
             item.ItemSelected += OnItemSelected;
+
             return item;
         }
 
@@ -73,11 +75,7 @@ namespace UI.Shop
         {
             List<ItemData> items = new List<ItemData>();
 
-            foreach (Item item in m_Items)
-            {
-                items.Add(new ItemData(item.Name, item.Cost, item.Icon, item.BelongsTo));
-            }
-
+            m_Items.ForEach(item => items.Add(new ItemData(item.Name, item.Cost, item.Icon, item.BelongsTo)));
             m_ItemsData.ItemList.Clear();
             m_ItemsData.ItemList.AddRange(items);
             m_ItemsData.ItemList.AddRange(m_EquippedItems);
@@ -87,20 +85,20 @@ namespace UI.Shop
         {
             ClearItems();
 
-            foreach (ItemData item in m_ItemsData.ItemList)
+            m_ItemsData.ItemList.ForEach(item =>
             {
                 if (item.BelongsTo == ItemBelongsTo.Equipped) m_EquippedItems.Add(item);
                 else m_Items.Add(CreateItem(item.Name, item.Cost, item.Icon, item.BelongsTo));
-            }
+            });
         }
 
         private void ClearItems()
         {
-            foreach (Item item in m_Items)
+            m_Items.ForEach(item =>
             {
                 item.ItemSelected -= OnItemSelected;
                 Destroy(item.Parent);
-            }
+            });
 
             m_Items.Clear();
             m_EquippedItems.Clear();
@@ -130,8 +128,7 @@ namespace UI.Shop
             else
             {
                 m_CoinsData.Count -= cost;
-
-                foreach (Item item in itemsToBuy) item.BelongsTo = ItemBelongsTo.Inventory;
+                itemsToBuy.ForEach(item => item.BelongsTo = ItemBelongsTo.Inventory);
             }
         }
 
@@ -140,13 +137,12 @@ namespace UI.Shop
             List<Item> itemsToSell = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
             int cost = itemsToSell.Select(item => item.Cost).Sum();
             m_CoinsData.Count += cost;
-
-            foreach (Item item in itemsToSell) item.BelongsTo = ItemBelongsTo.Shop;
+            itemsToSell.ForEach(item => item.BelongsTo = ItemBelongsTo.Shop);
         }
 
         private void DeselectAll()
         {
-            foreach (Item item in m_Items) item.Selected = false;
+            m_Items.ForEach(item => item.Selected = false);
         }
         #endregion
 
@@ -167,6 +163,7 @@ namespace UI.Shop
         {
             List<Item> itemsToSell = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
             List<Item> itemsToBuy = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Shop && item.Selected).ToList();
+
             m_SellPrice.text = itemsToSell.Select(item => item.Cost).Sum().ToString();
             m_BuyPrice.text = itemsToBuy.Select(item => item.Cost).Sum().ToString();
         }
