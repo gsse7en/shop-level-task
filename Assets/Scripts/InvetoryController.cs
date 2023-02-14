@@ -55,10 +55,12 @@ namespace UI.Inventory
         private Item CreateItem(string name, int cost, Sprite icon, ItemBelongsTo belongsTo)
         {
             Item item = Instantiate(m_ItemPrefab, belongsTo == ItemBelongsTo.Inventory ? m_InventoryContent : m_EquippedContent);
+
             item.BelongsTo = belongsTo;
             item.Name = name;
             item.Cost = cost;
             item.Icon = icon;
+
             return item;
         }
 
@@ -66,11 +68,7 @@ namespace UI.Inventory
         {
             List<ItemData> items = new List<ItemData>();
 
-            foreach (Item item in m_Items)
-            {
-                items.Add(new ItemData(item.Name, item.Cost, item.Icon, item.BelongsTo));
-            }
-
+            m_Items.ForEach(item => items.Add(new ItemData(item.Name, item.Cost, item.Icon, item.BelongsTo)));
             m_ItemsData.ItemList.Clear();
             m_ItemsData.ItemList.AddRange(items);
             m_ItemsData.ItemList.AddRange(m_ShopItems);
@@ -80,16 +78,16 @@ namespace UI.Inventory
         {
             ClearItems();
 
-            foreach (ItemData item in m_ItemsData.ItemList)
+            m_ItemsData.ItemList.ForEach(item =>
             {
                 if (item.BelongsTo == ItemBelongsTo.Shop) m_ShopItems.Add(item);
                 else m_Items.Add(CreateItem(item.Name, item.Cost, item.Icon, item.BelongsTo));
-            }
+            });
         }
 
         private void ClearItems()
         {
-            foreach (Item item in m_Items) Destroy(item.Parent);
+            m_Items.ForEach(item => Destroy(item.Parent));
             m_Items.Clear();
             m_ShopItems.Clear();
         }
@@ -111,20 +109,22 @@ namespace UI.Inventory
         private List<string> EquipSelected()
         {
             List<Item> itemsToEquip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
-            foreach (Item item in itemsToEquip) item.BelongsTo = ItemBelongsTo.Equipped;
+            itemsToEquip.ForEach(item => item.BelongsTo = ItemBelongsTo.Equipped);
+
             return itemsToEquip.Select(item => item.Name).ToList();
         }
 
         private List<string> StripSelected()
         {
             List<Item> itemsToStrip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Equipped && item.Selected).ToList();
-            foreach (Item item in itemsToStrip) item.BelongsTo = ItemBelongsTo.Inventory;
+            itemsToStrip.ForEach(item => item.BelongsTo = ItemBelongsTo.Inventory);
+
             return itemsToStrip.Select(item => item.Name).ToList();
         }
 
         private void DeselectAll()
         {
-            foreach (Item item in m_Items) item.Selected = false;
+            m_Items.ForEach(item => item.Selected = false);
         }
         #endregion
 
