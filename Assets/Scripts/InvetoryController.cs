@@ -20,6 +20,8 @@ namespace UI.Inventory
         [SerializeField]
         private Button m_ButtonEquip;
         [SerializeField]
+        private Button m_ButtonStrip;
+        [SerializeField]
         private Item m_ItemPrefab;
         private List<Item> m_Items = new List<Item>();
         private List<ItemData> m_ShopItems = new List<ItemData>();
@@ -28,7 +30,8 @@ namespace UI.Inventory
         private void Awake()
         {
             LoadItems();
-            if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
+            SubcribeToEvents();
+            
         }
 
         private void OnEnable()
@@ -45,7 +48,7 @@ namespace UI.Inventory
         private void OnDestroy()
         {
             ClearItems();
-            if (m_ButtonEquip != null) m_ButtonEquip.onClick.RemoveAllListeners();
+            UnsubscribeFromEvents();
         }
         #endregion
 
@@ -99,6 +102,13 @@ namespace UI.Inventory
             LoadItems();
         }
 
+        private void Strip()
+        {
+            m_Player.Strip(StripSelected());
+            SaveItems();
+            LoadItems();
+        }
+
         private List<string> EquipSelected()
         {
             List<Item> itemsToEquip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
@@ -106,9 +116,30 @@ namespace UI.Inventory
             return itemsToEquip.Select(item => item.Name).ToList();
         }
 
+        private List<string> StripSelected()
+        {
+            List<Item> itemsToStrip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Equipped && item.Selected).ToList();
+            foreach (Item item in itemsToStrip) item.BelongsTo = ItemBelongsTo.Inventory;
+            return itemsToStrip.Select(item => item.Name).ToList();
+        }
+
         private void DeselectAll()
         {
             foreach (Item item in m_Items) item.Selected = false;
+        }
+        #endregion
+
+        #region Subscriptions
+        private void SubcribeToEvents()
+        {
+            if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
+            if (m_ButtonStrip != null) m_ButtonStrip.onClick.AddListener(delegate { Strip(); });
+        }
+
+        private void UnsubscribeFromEvents()
+        {
+            if (m_ButtonEquip != null) m_ButtonEquip.onClick.RemoveAllListeners();
+            if (m_ButtonStrip != null) m_ButtonStrip.onClick.RemoveAllListeners();
         }
         #endregion
     }
