@@ -442,12 +442,12 @@ PrefabInstance:
     - target: {fileID: 2294316273783810152, guid: 279609700fdd54f159d53749594670c0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.262
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2294316273783810152, guid: 279609700fdd54f159d53749594670c0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.063
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 2294316273783810152, guid: 279609700fdd54f159d53749594670c0,
         type: 3}
@@ -28943,7 +28943,7 @@ PrefabInstance:
     - target: {fileID: 2055102311959635375, guid: f681a54372d73d74785b9c9d4ac477e8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.56
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 2055102311959635375, guid: f681a54372d73d74785b9c9d4ac477e8,
         type: 3}
@@ -28989,6 +28989,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2444991506894079395, guid: f681a54372d73d74785b9c9d4ac477e8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2444991506894079395, guid: f681a54372d73d74785b9c9d4ac477e8,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2444991506894079395, guid: f681a54372d73d74785b9c9d4ac477e8,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -105541197
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370152849212869299, guid: f681a54372d73d74785b9c9d4ac477e8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370152849212869299, guid: f681a54372d73d74785b9c9d4ac477e8,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370152849212869299, guid: f681a54372d73d74785b9c9d4ac477e8,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -105541197
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f681a54372d73d74785b9c9d4ac477e8, type: 3}
@@ -40077,11 +40107,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Merchant
       objectReference: {fileID: 0}
-    - target: {fileID: 7860095205517448927, guid: fe5cf6f3f88b849e78601502b8937464,
-        type: 3}
-      propertyPath: uIController
-      value: 
-      objectReference: {fileID: 1969091777}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe5cf6f3f88b849e78601502b8937464, type: 3}
 --- !u!4 &3331498173276343792 stripped
