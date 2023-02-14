@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ItemsData: {fileID: 11400000, guid: 010f8cb8eafd14f8d90194b396bfd89a, type: 2}
+  m_CoinsData: {fileID: 11400000, guid: a0e42ca9e560b4d9cad5460dba6e5f85, type: 2}
   m_ShopContent: {fileID: 494005224}
   m_InventoryContent: {fileID: 85777053}
   m_ButtonSell: {fileID: 1314389006}
@@ -1211,7 +1212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.999998}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: -20.000008, y: -40.000004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &85777054
@@ -12055,7 +12056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.999998}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: -20, y: -39.999996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494005225
@@ -35498,6 +35499,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShopScreen: {fileID: 1491561800}
   m_InventoryScreen: {fileID: 1191178218667619126}
+  m_CoinsData: {fileID: 11400000, guid: a0e42ca9e560b4d9cad5460dba6e5f85, type: 2}
+  m_HUDCoins: {fileID: 854438715}
 --- !u!1001 &1979578892
 PrefabInstance:
   m_ObjectHideFlags: 0

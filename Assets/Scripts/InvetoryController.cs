@@ -22,6 +22,7 @@ namespace UI.Inventory
         [SerializeField]
         private Item m_ItemPrefab;
         private List<Item> m_Items = new List<Item>();
+        private List<ItemData> m_ShopItems = new List<ItemData>();
 
         #region Lyfecicle
         private void Awake()
@@ -30,9 +31,15 @@ namespace UI.Inventory
             if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
         }
 
+        private void OnEnable()
+        {
+            LoadItems();
+        }
+
         private void OnDisable()
         {
             DeselectAll();
+            SaveItems();
         }
 
         private void OnDestroy()
@@ -64,6 +71,7 @@ namespace UI.Inventory
 
             m_ItemsData.ItemList.Clear();
             m_ItemsData.ItemList.AddRange(items);
+            m_ItemsData.ItemList.AddRange(m_ShopItems);
         }
 
         private void LoadItems()
@@ -72,7 +80,8 @@ namespace UI.Inventory
 
             foreach (ItemData item in m_ItemsData.ItemList)
             {
-                m_Items.Add(CreateItem(item.Name, item.Cost, item.Icon, item.BelongsTo));
+                if (item.BelongsTo == ItemBelongsTo.Shop) m_ShopItems.Add(item);
+                else m_Items.Add(CreateItem(item.Name, item.Cost, item.Icon, item.BelongsTo));
             }
         }
 
@@ -80,6 +89,7 @@ namespace UI.Inventory
         {
             foreach (Item item in m_Items) Destroy(item.Parent);
             m_Items.Clear();
+            m_ShopItems.Clear();
         }
 
         private void Equip()
