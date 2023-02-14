@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UI.ShopItem;
+using TMPro;
 
 namespace UI.Shop
 {
@@ -22,6 +23,10 @@ namespace UI.Shop
         private Button m_ButtonBuy;
         [SerializeField]
         private Item m_ItemPrefab;
+        [SerializeField]
+        private TextMeshProUGUI m_BuyPrice;
+        [SerializeField]
+        private TextMeshProUGUI m_SellPrice;
         private List<Item> m_Items = new List<Item>();
         private List<ItemData> m_EquippedItems = new List<ItemData>();
 
@@ -58,6 +63,7 @@ namespace UI.Shop
             item.Name = name;
             item.Cost = cost;
             item.Icon = icon;
+            item.ItemSelected += OnItemSelected;
             return item;
         }
 
@@ -88,9 +94,14 @@ namespace UI.Shop
 
         private void ClearItems()
         {
-            foreach (Item item in m_Items) Destroy(item.Parent);
+            foreach (Item item in m_Items)
+            {
+                item.ItemSelected -= OnItemSelected;
+                Destroy(item.Parent);
+            }
             m_Items.Clear();
             m_EquippedItems.Clear();
+            m_BuyPrice.text = m_SellPrice.text = "0";
         }
 
         private void Sell()
@@ -149,6 +160,14 @@ namespace UI.Shop
         {
             if (m_ButtonBuy != null) m_ButtonBuy.onClick.RemoveAllListeners();
             if (m_ButtonSell != null) m_ButtonSell.onClick.RemoveAllListeners();
+        }
+
+        private void OnItemSelected()
+        {
+            List<Item> itemsToSell = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
+            List<Item> itemsToBuy = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Shop && item.Selected).ToList();
+            m_SellPrice.text = itemsToSell.Select(item => item.Cost).Sum().ToString();
+            m_BuyPrice.text = itemsToBuy.Select(item => item.Cost).Sum().ToString();
         }
         #endregion
     }
