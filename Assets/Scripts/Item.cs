@@ -27,9 +27,20 @@ namespace UI.ShopItem
         private int m_Cost;
         private bool m_Selected = false;
         private string m_Name;
+        private ItemBelongsTo m_BelongsTo;
 
         public GameObject Parent { get { return m_ItemInfo.Parent; } }
-        public Sprite Icon { set { m_ItemInfo.Icon.sprite = value; } }
+        public Sprite Icon
+        {
+            get { return m_ItemInfo.Icon.sprite; }
+            set { m_ItemInfo.Icon.sprite = value; }
+        }
+
+        public ItemBelongsTo BelongsTo
+        {
+            get { return m_BelongsTo; }
+            set { m_BelongsTo = value; }
+        }
 
         public int Cost
         {

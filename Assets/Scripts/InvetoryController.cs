@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UI.ShopItem;
+using UnityEngine.UI;
+using System.Linq;
 
 namespace UI.Inventory
 {
@@ -21,102 +23,91 @@ namespace UI.Inventory
         [SerializeField]
         private RectTransform m_InventoryContent;
         [SerializeField]
+        private Button m_ButtonClose;
+        [SerializeField]
+        private Button m_ButtonEquip;
+        [SerializeField]
         private Item m_ItemPrefab;
-        private List<Item> m_EquippedItems = new List<Item>();
-        private List<Item> m_InventoryItems = new List<Item>();
-
+        private List<Item> m_Items = new List<Item>();
 
         #region Lyfecicle
         private void Awake()
         {
-            LoadItems();
-            //m_InventoryItems.Add(Sword);
-            //m_InventoryItems.Add(Helmet);
+            PopulateIventory();
+            PopulateEquipped();
+            //LoadItems();
+            SubscribeToEvents();
         }
 
         private void OnDestroy()
         {
             Clean();
+            UnsubscribeFromEvents();
         }
         #endregion
 
         #region Public
-        //public void HideCursor()
-        //{
-        //    OnMouseOut();
-        //    Cursor.visible = false;
-        //}
-
-        //public void ShowCursor()
-        //{
-        //    Cursor.visible = false;
-        //}
-
-        //public void OnMouseOver()
-        //{
-        //    Cursor.SetCursor(handCursos, new Vector2(14f, 16f), CursorMode.Auto);
-        //}
-
-        //public void OnMouseOut()
-        //{
-        //    Cursor.SetCursor(pointerCursos, new Vector2(20f, 20f), CursorMode.Auto);
-        //}
+        
         #endregion
 
         #region Private
-        private void LoadItems()
+        private Item CreateItem(string name, int cost, Sprite icon, ItemBelongsTo belongsTo)
         {
-            m_InventoryItems.Add(CreateItem("Sword", 150, sword));
-            m_InventoryItems.Add(CreateItem("Helmet", 100, helmet));
-            //Item sword = Instantiate(m_ItemPrefab, m_InventoryContent);
-            //sword.
-        }
-
-        private Item CreateItem(string name, int cost, Sprite icon)
-        {
-            Item item = Instantiate(m_ItemPrefab, m_InventoryContent);
+            Item item = Instantiate(m_ItemPrefab, belongsTo == ItemBelongsTo.Inventory ? m_InventoryContent : m_EquippedContent);
+            item.BelongsTo = belongsTo;
             item.Name = name;
             item.Cost = cost;
             item.Icon = icon;
             return item;
         }
 
+        private void PopulateIventory()
+        {
+            m_Items.Add(CreateItem("Sword", 150, sword, ItemBelongsTo.Inventory));
+        }
+
+        private void PopulateEquipped()
+        {
+            m_Items.Add(CreateItem("Helmet", 100, helmet, ItemBelongsTo.Inventory));
+        }
+
+        private void LoadItems()
+        {
+            List<Item> items = new List<Item>();
+            items.AddRange(m_Items);
+            m_Items.Clear();
+
+            foreach (Item item in items)
+            {
+                m_Items.Add(CreateItem(item.Name, item.Cost, item.Icon, item.BelongsTo));
+            }
+        }
+
         private void Clean()
         {
-            foreach (Item item in m_EquippedItems)
-            {
-                Destroy(item.Parent);
-            }
-
-            foreach (Item item in m_InventoryItems)
-            {
-                Destroy(item.Parent);
-            }
-
-            m_EquippedItems.Clear();
-            m_InventoryItems.Clear();
+            foreach (Item item in m_Items) Destroy(item.Parent);
         }
 
-        private void Equip(Item item)
+        private void Equip()
         {
-            m_EquippedItems.Add(item);
-        }
-
-        private void Equip(List<Item> items)
-        {
-            m_EquippedItems.AddRange(items);
+            List<Item> itemsToEquip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
+            foreach (Item item in itemsToEquip) item.BelongsTo = ItemBelongsTo.Equipped;
+            Clean();
+            LoadItems();
         }
         #endregion
 
         #region Delegates
-        private void OnEquipButtonClicked()
+        private void SubscribeToEvents()
         {
-
+            //if (m_ButtonClose != null) m_ButtonClose.onClick.AddListener(delegate { Clean(); });
+            if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
         }
 
-        private void OnCloseButtonClicked()
+        private void UnsubscribeFromEvents()
         {
-
+            //if (m_ButtonClose != null) m_ButtonClose.onClick.RemoveAllListeners();
+            if (m_ButtonEquip != null) m_ButtonEquip.onClick.RemoveAllListeners();
         }
         #endregion
     }
