@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UI;
+using System.Linq;
+using UI.ShopItem;
 
 namespace Game.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField]
+        private ItemsData m_ItemsData;
         [SerializeField]
         private float speed = 5f;
         [SerializeField]
@@ -30,6 +34,12 @@ namespace Game.Player
                 { "Sword", m_Sword },
                 { "Helmet", m_Helmet }
             };
+
+            foreach (ItemData item in m_ItemsData.ItemList)
+            {
+                if (item.BelongsTo == ItemBelongsTo.Equipped) m_ItemsDictionary[item.Name].SetActive(true);
+            }
+
             m_UIStateData.UIScreenChanged += OnUIScreenChanged;
         }
 

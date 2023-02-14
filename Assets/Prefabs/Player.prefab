@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e86b4f77f0a04820acc5ecf7ede676e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ItemsData: {fileID: 11400000, guid: 010f8cb8eafd14f8d90194b396bfd89a, type: 2}
   speed: 3
   m_Sword: {fileID: 2159265783862828258}
   m_Helmet: {fileID: 7453211549317022978}
