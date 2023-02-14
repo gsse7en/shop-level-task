@@ -125,11 +125,6 @@ namespace UI.Shop
             List<Item> itemsToBuy = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Shop && item.Selected).ToList();
             int cost = itemsToBuy.Select(item => item.Cost).Sum();
             if (cost > m_CoinsData.Count) m_NotEnoughMoneyAnimator.SetTrigger("NoMoney");
-            //{
-            //    //TODO
-            //    Debug.LogError("NOT ENOUGH CASH");
-            //    return;
-            //}
             else
             {
                 m_CoinsData.Count -= cost;

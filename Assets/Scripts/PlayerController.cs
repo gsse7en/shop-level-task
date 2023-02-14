@@ -40,6 +40,11 @@ namespace Game.Player
             foreach (string name in items) m_ItemsDictionary[name].SetActive(true);
         }
 
+        public void Strip(List<string> items)
+        {
+            foreach (string name in items) m_ItemsDictionary[name].SetActive(false);
+        }
+
         public void Move(Vector2 value)
         {
             movement = value;
