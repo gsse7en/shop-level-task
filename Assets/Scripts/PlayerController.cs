@@ -17,6 +17,8 @@ namespace Game.Player
         [SerializeField]
         private GameObject m_Helmet;
         [SerializeField]
+        private GameObject m_Armor;
+        [SerializeField]
         private UIStateData m_UIStateData;
         [SerializeField]
         private Animator m_PlayerAnimator;
@@ -35,7 +37,8 @@ namespace Game.Player
             m_ItemsDictionary = new Dictionary<string, GameObject>()
             {
                 { "Sword", m_Sword },
-                { "Helmet", m_Helmet }
+                { "Helmet", m_Helmet },
+                { "Armor", m_Armor }
             };
 
             m_ItemsData.ItemList.ForEach(item =>
