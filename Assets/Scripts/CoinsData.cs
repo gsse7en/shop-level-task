@@ -15,12 +15,7 @@ public class CoinsData : ScriptableObject
         set
         {
             m_CoinsCount = value;
-            Raise(m_CoinsCount);
+            CoinsChanged?.Invoke(m_CoinsCount);
         }
-    }
-
-    public void Raise(int coinsCount)
-    {
-        CoinsChanged?.Invoke(coinsCount);
     }
 }

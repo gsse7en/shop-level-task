@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,6 +36,7 @@ namespace UI.ShopItem
 
     public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        public event Action ItemSelected;
         [SerializeField]
         private ItemInfo m_ItemInfo;
         [SerializeField]
@@ -76,6 +78,7 @@ namespace UI.ShopItem
             {
                 m_Selected = value;
                 m_ItemInfo.SelectHighlight.SetActive(m_Selected);
+                ItemSelected?.Invoke();
             }
         }
 
