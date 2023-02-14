@@ -33,5 +33,10 @@ namespace Game.Controls
         {
             uIController.OpenInventory();
         }
+
+        private void OnQuitGame()
+        {
+            Application.Quit();
+        }
     }
 }
