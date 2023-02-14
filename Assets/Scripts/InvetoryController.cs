@@ -10,23 +10,14 @@ namespace UI.Inventory
 {
     public class InvetoryController : MonoBehaviour
     {
-        //temp
         [SerializeField]
-        private Sprite helmet;
-        [SerializeField]
-        private Sprite sword;
-        /*
-        [SerializeField]
-        private Data m_PlayerData;
-         */
+        private ItemsData m_ItemsData;
         [SerializeField]
         private PlayerController m_Player;
         [SerializeField]
         private RectTransform m_EquippedContent;
         [SerializeField]
         private RectTransform m_InventoryContent;
-        [SerializeField]
-        private Button m_ButtonClose;
         [SerializeField]
         private Button m_ButtonEquip;
         [SerializeField]
@@ -36,21 +27,20 @@ namespace UI.Inventory
         #region Lyfecicle
         private void Awake()
         {
-            PopulateIventory();
-            PopulateEquipped();
-            //LoadItems();
-            SubscribeToEvents();
+            LoadItems();
+            if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
+        }
+
+        private void OnDisable()
+        {
+            DeselectAll();
         }
 
         private void OnDestroy()
         {
-            Clean();
-            UnsubscribeFromEvents();
+            ClearItems();
+            if (m_ButtonEquip != null) m_ButtonEquip.onClick.RemoveAllListeners();
         }
-        #endregion
-
-        #region Public
-        
         #endregion
 
         #region Private
@@ -64,59 +54,52 @@ namespace UI.Inventory
             return item;
         }
 
-        private void PopulateIventory()
+        private void SaveItems()
         {
-            m_Items.Add(CreateItem("Sword", 150, sword, ItemBelongsTo.Inventory));
-        }
+            List<ItemData> items = new List<ItemData>();
 
-        private void PopulateEquipped()
-        {
-            m_Items.Add(CreateItem("Helmet", 100, helmet, ItemBelongsTo.Inventory));
+            foreach (Item item in m_Items)
+            {
+                items.Add(new ItemData(item.Name, item.Cost, item.Icon, item.BelongsTo));
+            }
+
+            m_ItemsData.ItemList.Clear();
+            m_ItemsData.ItemList.AddRange(items);
         }
 
         private void LoadItems()
         {
-            List<Item> items = new List<Item>();
-            items.AddRange(m_Items);
-            m_Items.Clear();
+            ClearItems();
 
-            foreach (Item item in items)
+            foreach (ItemData item in m_ItemsData.ItemList)
             {
                 m_Items.Add(CreateItem(item.Name, item.Cost, item.Icon, item.BelongsTo));
             }
         }
 
-        private void Clean()
+        private void ClearItems()
         {
             foreach (Item item in m_Items) Destroy(item.Parent);
+            m_Items.Clear();
         }
 
         private void Equip()
         {
+            m_Player.Equip(EquipSelected());
+            SaveItems();
+            LoadItems();
+        }
+
+        private List<string> EquipSelected()
+        {
             List<Item> itemsToEquip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
             foreach (Item item in itemsToEquip) item.BelongsTo = ItemBelongsTo.Equipped;
-            Clean();
-            LoadItems();
-            m_Player.Equip(itemsToEquip.Select(item => item.Name).ToList());
+            return itemsToEquip.Select(item => item.Name).ToList();
         }
 
         private void DeselectAll()
         {
             foreach (Item item in m_Items) item.Selected = false;
-        }
-        #endregion
-
-        #region Delegates
-        private void SubscribeToEvents()
-        {
-            if (m_ButtonClose != null) m_ButtonClose.onClick.AddListener(delegate { DeselectAll(); });
-            if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
-        }
-
-        private void UnsubscribeFromEvents()
-        {
-            //if (m_ButtonClose != null) m_ButtonClose.onClick.RemoveAllListeners();
-            if (m_ButtonEquip != null) m_ButtonEquip.onClick.RemoveAllListeners();
         }
         #endregion
     }

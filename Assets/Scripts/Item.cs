@@ -18,6 +18,23 @@ namespace UI.ShopItem
         public Image Icon;
     }
 
+    [System.Serializable]
+    public struct ItemData
+    {
+        public string Name;
+        public int Cost;
+        public Sprite Icon;
+        public ItemBelongsTo BelongsTo;
+
+        public ItemData(string name, int cost, Sprite icon, ItemBelongsTo belongsTo)
+        {
+            Name = name;
+            Cost = cost;
+            Icon = icon;
+            BelongsTo = belongsTo;
+        }
+    }
+
     public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField]
@@ -68,18 +85,12 @@ namespace UI.ShopItem
         #region Lifecycle
         private void Awake()
         {
-            if (m_ItemInfo.ItemButton != null)
-            {
-                m_ItemInfo.ItemButton.onClick.AddListener(delegate { Selected = !Selected; });
-            }
+            if (m_ItemInfo.ItemButton != null) m_ItemInfo.ItemButton.onClick.AddListener(delegate { Selected = !Selected; });
         }
 
         private void OnDestroy()
         {
-            if (m_ItemInfo.ItemButton != null)
-            {
-                m_ItemInfo.ItemButton.onClick.RemoveAllListeners();
-            }
+            if (m_ItemInfo.ItemButton != null) m_ItemInfo.ItemButton.onClick.RemoveAllListeners();
         }
         #endregion
 
