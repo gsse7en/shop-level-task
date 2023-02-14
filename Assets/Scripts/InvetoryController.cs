@@ -4,6 +4,7 @@ using UnityEngine;
 using UI.ShopItem;
 using UnityEngine.UI;
 using System.Linq;
+using Game.Player;
 
 namespace UI.Inventory
 {
@@ -18,6 +19,8 @@ namespace UI.Inventory
         [SerializeField]
         private Data m_PlayerData;
          */
+        [SerializeField]
+        private PlayerController m_Player;
         [SerializeField]
         private RectTransform m_EquippedContent;
         [SerializeField]
@@ -94,13 +97,19 @@ namespace UI.Inventory
             foreach (Item item in itemsToEquip) item.BelongsTo = ItemBelongsTo.Equipped;
             Clean();
             LoadItems();
+            m_Player.Equip(itemsToEquip.Select(item => item.Name).ToList());
+        }
+
+        private void DeselectAll()
+        {
+            foreach (Item item in m_Items) item.Selected = false;
         }
         #endregion
 
         #region Delegates
         private void SubscribeToEvents()
         {
-            //if (m_ButtonClose != null) m_ButtonClose.onClick.AddListener(delegate { Clean(); });
+            if (m_ButtonClose != null) m_ButtonClose.onClick.AddListener(delegate { DeselectAll(); });
             if (m_ButtonEquip != null) m_ButtonEquip.onClick.AddListener(delegate { Equip(); });
         }
 

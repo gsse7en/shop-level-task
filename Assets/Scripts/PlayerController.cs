@@ -1,25 +1,31 @@
-using UI;
+using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 
-namespace Game.Controls
+namespace Game.Player
 {
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
         private float speed = 5f;
         [SerializeField]
-        private UIController uIController;
+        private GameObject m_Sword;
+        [SerializeField]
+        private GameObject m_Helmet;
         [ReadOnlyAttribute, SerializeField]
         private Vector2 movement;
         private Rigidbody2D rb;
+        private Dictionary<string, GameObject> m_ItemsDictionary;
 
         #region Lifecycle
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            m_ItemsDictionary = new Dictionary<string, GameObject>()
+            {
+                { "Sword", m_Sword },
+                { "Helmet", m_Helmet }
+            };
         }
 
         void FixedUpdate()
@@ -28,26 +34,15 @@ namespace Game.Controls
         }
         #endregion
 
-        #region Events
-        private void OnMovement(InputValue value)
+        #region Public
+        public void Equip(List<string> items)
         {
-            movement = value.Get<Vector2>();
+            foreach (string name in items) m_ItemsDictionary[name].SetActive(true);
         }
 
-        private void OnOpenShop()
+        public void Move(Vector2 value)
         {
-            uIController.OpenShop();
-        }
-
-        private void OnClosePopups()
-        {
-
-            uIController.CloseScreens();
-        }
-
-        private void OnOpenInventory()
-        {
-            uIController.OpenInventory();
+            movement = value;
         }
         #endregion
 
