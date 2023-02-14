@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UI.ShopItem;
 using UnityEngine.UI;
 using System.Linq;
+using UI.ShopItem;
 using Game.Player;
 
 namespace UI.Inventory

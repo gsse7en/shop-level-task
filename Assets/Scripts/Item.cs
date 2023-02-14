@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -76,7 +74,6 @@ namespace UI.ShopItem
             get { return m_Selected; }
             set
             {
-                if (m_BelongsTo == ItemBelongsTo.Equipped) return;
                 m_Selected = value;
                 m_ItemInfo.SelectHighlight.SetActive(m_Selected);
             }
@@ -97,13 +94,11 @@ namespace UI.ShopItem
         #region Events
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (m_BelongsTo == ItemBelongsTo.Equipped) return;
             m_CursorHandler.HandCursor();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (m_BelongsTo == ItemBelongsTo.Equipped) return;
             m_CursorHandler.PointerCursor();
         }
         #endregion

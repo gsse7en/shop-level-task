@@ -1,4 +1,3 @@
-//using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -12,6 +11,7 @@ namespace UI.Shop
     {
         [SerializeField]
         private ItemsData m_ItemsData;
+        //TODO make coins scriptable obect
         //[SerializeField]
         //private PlayerController m_Player;
         [SerializeField]
@@ -87,22 +87,31 @@ namespace UI.Shop
 
         private void Sell()
         {
+            SellSelected();
             SaveItems();
             LoadItems();
         }
 
         private void Buy()
         {
+            BuySelected();
             SaveItems();
             LoadItems();
         }
 
-        //private List<string> EquipSelected()
-        //{
-        //    List<Item> itemsToEquip = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
-        //    foreach (Item item in itemsToEquip) item.BelongsTo = ItemBelongsTo.Equipped;
-        //    return itemsToEquip.Select(item => item.Name).ToList();
-        //}
+        private void BuySelected()
+        {
+            List<Item> itemsToBuy = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Shop && item.Selected).ToList();
+            //TODO check for cash
+            foreach (Item item in itemsToBuy) item.BelongsTo = ItemBelongsTo.Inventory;
+        }
+
+        private void SellSelected()
+        {
+            List<Item> itemsToSell = m_Items.Where(item => item.BelongsTo == ItemBelongsTo.Inventory && item.Selected).ToList();
+            //TODO check for cash
+            foreach (Item item in itemsToSell) item.BelongsTo = ItemBelongsTo.Shop;
+        }
 
         private void DeselectAll()
         {

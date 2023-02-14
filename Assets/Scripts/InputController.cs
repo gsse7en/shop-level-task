@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using Game.Player;
-using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Game.Player;
+using UI;
 
 namespace Game.Controls
 {

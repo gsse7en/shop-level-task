@@ -19,7 +19,7 @@ namespace UI
         private GameObject m_InventoryScreen;
 
         private UIScreens m_CurrentScreen = UIScreens.None;
-        //TODO make event delegate listner
+        //TODO make event delegate listener
         private bool m_showBuyButton = false;
         public bool ShowBuyButton
         {
@@ -37,22 +37,22 @@ namespace UI
             }
         }
 
-        #region Lifecycle
-        void Start()
-        {
-            //
-        }
+        //#region Lifecycle
+        //void Start()
+        //{
+        //    //
+        //}
 
-        private void OnDestroy()
-        {
-            //
-        }
+        //private void OnDestroy()
+        //{
+        //    //
+        //}
 
-        void Update()
-        {
-            //
-        }
-        #endregion
+        //void Update()
+        //{
+        //    //
+        //}
+        //#endregion
 
         #region Public
         public void OpenShop()
@@ -70,20 +70,20 @@ namespace UI
             CurrentScreen = UIScreens.Inventory;
         }
 
-        public void Buy()
-        {
-            Debug.Log("BuyButton Pressed");
-        }
+        //public void Buy()
+        //{
+        //    Debug.Log("BuyButton Pressed");
+        //}
 
-        public void Sell()
-        {
-            Debug.Log("SellButton Pressed");
-        }
+        //public void Sell()
+        //{
+        //    Debug.Log("SellButton Pressed");
+        //}
 
-        public void Equip()
-        {
-            Debug.Log("EquipButton Pressed");
-        }
+        //public void Equip()
+        //{
+        //    Debug.Log("EquipButton Pressed");
+        //}
         #endregion
 
         #region Private
